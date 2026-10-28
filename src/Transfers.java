@@ -2,8 +2,19 @@
 public class Transfers {
     // moves amount from one account to the other, holding both locks
     static void transfer(Account from, Account to, int amount) {
-        synchronized (from) {
-            synchronized (to) {
+        Account first;
+        Account second;
+
+        if (from.getName().compareTo(to.getName()) < 0 ) {
+            first = from;
+            second = to;
+        } else {
+            first = to;
+            second = from;
+        }
+
+        synchronized (first) {
+            synchronized (second) {
                 from.add(-amount);
                 to.add(amount);
             }
