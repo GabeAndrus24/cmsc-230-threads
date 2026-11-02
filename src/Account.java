@@ -19,4 +19,12 @@ public class Account {
     public void add(int amount) {
         balance = balance + amount;
     }
+
+    public synchronized boolean takeIfEnough(int amount) {
+        if (balance >= amount) {
+            balance = balance - amount;
+            return true;
+        }
+        return false;
+    }
 }
